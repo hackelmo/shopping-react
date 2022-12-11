@@ -9,7 +9,8 @@ const ProductAll = () => {
   const [query, setQuery] = useSearchParams();
   const getProducts = async () => {
     let searchQuery = query.get("q") || "";
-    const url = `http://localhost:3001/products?q=${searchQuery}`;
+
+    const url = `http://my-json-server.typicode.com/boxman2/shopping-react/products?q=${searchQuery}`;
     const { data } = await axios.get(url);
     setProductList(data);
   };
@@ -22,7 +23,7 @@ const ProductAll = () => {
       <Container>
         <Row>
           {productList.map((el, i) => (
-            <Col key={`productList-${i}`} md={3} sm={12}>
+            <Col key={`productList-${i}`} lg={3} md={6} sm={12}>
               <Product item={el} />
             </Col>
           ))}
