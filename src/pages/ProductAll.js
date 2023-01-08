@@ -1,18 +1,19 @@
-import axios from "axios";
 import Product from "../components/Product";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
+import { productAction } from "../redux/actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProductAll = () => {
-  const [productList, setProductList] = useState([]);
+  //유즈샐랙터가 먼저가나? 값이없지않나?
+  const productList = useSelector((state) => state.product.productList);
+  console.log(productList);
   const [query, setQuery] = useSearchParams();
-  const getProducts = async () => {
+  const dispatch = useDispatch();
+  const getProducts = () => {
     let searchQuery = query.get("q") || "";
-
-    const url = `http://my-json-server.typicode.com/boxman2/shopping-react/products?q=${searchQuery}`;
-    const { data } = await axios.get(url);
-    setProductList(data);
+    dispatch(productAction.getProducts(searchQuery));
   };
   useEffect(() => {
     getProducts();
@@ -22,7 +23,7 @@ const ProductAll = () => {
     <div>
       <Container>
         <Row>
-          {productList.map((el, i) => (
+          {productList?.map((el, i) => (
             <Col key={`productList-${i}`} lg={3} md={6} sm={12}>
               <Product item={el} />
             </Col>

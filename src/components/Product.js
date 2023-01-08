@@ -8,18 +8,18 @@ const Product = ({ item }) => {
     navigate(`/product/${item.id}`);
   };
   return (
-    <Card onClick={onClick}>
-      <img alt="제품" width="100%" src={item?.img} />
+    <div onClick={onClick}>
+      <Img alt="제품" width="100%" src={item?.img} />
       <div>{item?.title}</div>
       <div>{item?.price}</div>
       <div>{item?.new ? "신제품" : ""}</div>
-    </Card>
+    </div>
   );
 };
-const Card = styled.div`
+const Img = styled.img`
   cursor: pointer;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 `;
 

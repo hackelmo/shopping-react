@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Col,
   Container,
@@ -8,29 +7,32 @@ import {
   Row,
   Button,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { productAction } from "../redux/actions/productAction";
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState([]);
+  const dispatch = useDispatch();
+  const { product } = useSelector((state) => state.product);
+  console.log("홈", product);
   const { id } = useParams();
-  const getProductDetail = async () => {
-    let url = `http://my-json-server.typicode.com/boxman2/shopping-react/products/${id}`;
-    const { data } = await axios.get(url);
-    setProduct(data);
-  };
   useEffect(() => {
-    getProductDetail();
-  }, []);
+    dispatch(productAction.getProductOne(id));
+  }, [dispatch, id]);
   return (
     <Container>
       <Row>
         <Col lg={6} className="detail-img">
-          <img width="100%" src={product?.img} />
+          <img width="100%" src={product?.img} alt="프라다" />
         </Col>
         <Col lg={6} className="detail-context">
           <h1>{product?.title}</h1>
           <h6>{product?.price}</h6>
           <DropdownButton
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(e);
+            }}
             id="dropdown-basic-button"
             title="사이즈 선택"
             variant="secondary"
