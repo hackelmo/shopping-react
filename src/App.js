@@ -8,6 +8,7 @@ import PrivateRoute from "./pages/route/PrivateRoute";
 import "./App.css";
 
 const App = () => {
+  console.log("navbar");
   return (
     <>
       <Navbar />
