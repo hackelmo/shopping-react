@@ -9,7 +9,7 @@ import "./App.css";
 
 const App = () => {
   console.log("navbar");
-  console.log;
+  console.log("navbar2");
   return (
     <>
       <Navbar />
